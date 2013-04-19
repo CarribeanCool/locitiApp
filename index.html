@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+       <meta name="viewport" content="width=device-width">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <title>
+        </title>
+        <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="my.css" />
+        <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js">
+        </script>
+        <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js">
+        </script>
+        <script src="my.js">
+        </script>
+        <!-- User-generated css -->
+        <!-- User-generated js -->
+<!--        <script>
+            try {
+
+    $(function() {
+
+    });
+
+  } catch (error) {
+    console.error("Your javascript has an error: " + error);
+  }
+        </script>    -->
+   
+  <!-- Functions for using Home tab And MyLocation tab --> 
+  <style>
+  	#map { width:100%; height:100%; }
+  </style>
+  <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+     	 
+   <script>
+   
+       function MyHome()
+     {
+          document.location.reload(true);
+        document.getElementById("mapTorontoID").style.visibility = "hidden";
+  	  document.getElementById("mapOttawaID").style.visibility = "hidden";
+  	  document.getElementById("mapCalgaryID").style.visibility = "hidden";
+  	  document.getElementById("mapEdmontonID").style.visibility = "hidden";
+  	  document.getElementById("mapMontrealID").style.visibility = "hidden";
+  	  document.getElementById("mapVancouverID").style.visibility = "hidden";
+          document.getElementById("ListvID").style.visibility = "visible";
+      }
+
+     function MyLocation()
+        {
+         document.getElementById("map").style.visibility = "visible";
+  	var marker;
+  	var infoWindow;
+  	if (navigator.geolocation) {
+  		var timeoutVal = 10 * 1000 * 1000;
+  		navigator.geolocation.watchPosition(
+  			displayPosition, 
+  			displayError,
+  			{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+  		);
+  	}
+  	else {
+  		alert("Geolocation is not supported by this browser");
+  	}
+  	function displayPosition(position) {			
+  		var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  		var options = {
+  			zoom: 10,
+  			center: pos,
+  			mapTypeId: google.maps.MapTypeId.ROADMAP
+  		};
+  		var map = new google.maps.Map(document.getElementById("map"), options);
+  		// Remove the current marker, if there is one
+  		if (typeof(marker) != "undefined") marker.setMap(null);
+  		marker = new google.maps.Marker({
+  			position: pos,
+  			map: map,
+  			title: "User location"
+  		});
+  		var contentString = "<b>Timestamp:</b> " + parseTimestamp(position.timestamp) + "<br/><b>User location:</b> lat " + position.coords.latitude + ", long " + position.coords.longitude + ", accuracy " + position.coords.accuracy;
+  		// Remove the current infoWindow, if there is one
+  		if (typeof(infoWindow) != "undefined") infoWindow.setMap(null);
+  		infowindow = new google.maps.InfoWindow({
+  			content: contentString
+  		});
+  		google.maps.event.addListener(marker, 'click', function() {
+  			infowindow.open(map,marker);
+  		});
+  	}
+  	function displayError(error) {
+  		var errors = { 
+  			1: 'Permission denied',
+  			2: 'Position unavailable',
+  			3: 'Request timeout'
+  		};
+  		alert("Error: " + errors[error.code]);
+  	}
+  	function parseTimestamp(timestamp) {
+  		var d = new Date(timestamp);
+  		var day = d.getDate();
+  		var month = d.getMonth() + 1;
+  		var year = d.getFullYear();
+  		var hour = d.getHours();
+  		var mins = d.getMinutes();
+  		var secs = d.getSeconds();
+  		var msec = d.getMilliseconds();
+  		return day + "." + month + "." + year + " " + hour + ":" + mins + ":" + secs + "," + msec;
+  	}
+
+          document.getElementById("mapTorontoID").style.visibility = "hidden";
+  	  document.getElementById("mapOttawaID").style.visibility = "hidden";
+  	  document.getElementById("mapCalgaryID").style.visibility = "hidden";
+  	  document.getElementById("mapEdmontonID").style.visibility = "hidden";
+  	  document.getElementById("mapMontrealID").style.visibility = "hidden";
+  	  document.getElementById("mapVancouverID").style.visibility = "hidden";
+            var x=document.getElementById("ListvID");
+               x.remove(x.selectedIndex);
+        }
+    function toronto()
+     {   
+        document.getElementById("mapTorontoID").style.visibility = "visible";
+        document.getElementById("ListvID").style.visibility = "hidden";
+  	  document.getElementById("mapOttawaID").style.visibility = "hidden";
+  	  document.getElementById("mapCalgaryID").style.visibility = "hidden";
+  	  document.getElementById("mapEdmontonID").style.visibility = "hidden";
+  	  document.getElementById("mapMontrealID").style.visibility = "hidden";
+  	  document.getElementById("mapVancouverID").style.visibility = "hidden";
+  	  var x=document.getElementById("ListvID");
+               x.remove(x.selectedIndex);
+     }
+     
+     function ottawa()
+     {   
+        document.getElementById("mapTorontoID").style.visibility = "hidden";
+        document.getElementById("ListvID").style.visibility = "hidden";
+  	  document.getElementById("mapOttawaID").style.visibility = "visible";
+  	  document.getElementById("mapCalgaryID").style.visibility = "hidden";
+  	  document.getElementById("mapEdmontonID").style.visibility = "hidden";
+  	  document.getElementById("mapMontrealID").style.visibility = "hidden";
+  	  document.getElementById("mapVancouverID").style.visibility = "hidden";
+     var x=document.getElementById("ListvID");
+               x.remove(x.selectedIndex);
+  		   }
+     
+     function calgary()
+     {   
+        document.getElementById("mapTorontoID").style.visibility = "hidden";
+        document.getElementById("ListvID").style.visibility = "hidden";
+  	  document.getElementById("mapOttawaID").style.visibility = "hidden";
+  	  document.getElementById("mapCalgaryID").style.visibility = "visible";
+  	  document.getElementById("mapEdmontonID").style.visibility = "hidden";
+  	  document.getElementById("mapMontrealID").style.visibility = "hidden";
+  	  document.getElementById("mapVancouverID").style.visibility = "hidden";
+     var x=document.getElementById("ListvID");
+               x.remove(x.selectedIndex);
+  		   }
+     
+     function edmonton()
+     {   
+        document.getElementById("mapTorontoID").style.visibility = "hidden";
+        document.getElementById("ListvID").style.visibility = "hidden";
+  	  document.getElementById("mapOttawaID").style.visibility = "hidden";
+  	  document.getElementById("mapCalgaryID").style.visibility = "hidden";
+  	  document.getElementById("mapEdmontonID").style.visibility = "visible";
+  	  document.getElementById("mapMontrealID").style.visibility = "hidden";
+  	  document.getElementById("mapVancouverID").style.visibility = "hidden";
+     var x=document.getElementById("ListvID");
+               x.remove(x.selectedIndex);
+  		   }
+     
+     function montreal()
+     {   
+        document.getElementById("mapTorontoID").style.visibility = "hidden";
+        document.getElementById("ListvID").style.visibility = "hidden";
+  	  document.getElementById("mapOttawaID").style.visibility = "hidden";
+  	  document.getElementById("mapCalgaryID").style.visibility = "hidden";
+  	  document.getElementById("mapEdmontonID").style.visibility = "hidden";
+  	  document.getElementById("mapMontrealID").style.visibility = "visible";
+  	  document.getElementById("mapVancouverID").style.visibility = "hidden";
+     var x=document.getElementById("ListvID");
+               x.remove(x.selectedIndex);
+  		   }
+     
+     function vancouver()
+     {   
+        document.getElementById("mapTorontoID").style.visibility = "hidden";
+        document.getElementById("ListvID").style.visibility = "hidden";
+  	  document.getElementById("mapOttawaID").style.visibility = "hidden";
+  	  document.getElementById("mapCalgaryID").style.visibility = "hidden";
+  	  document.getElementById("mapEdmontonID").style.visibility = "hidden";
+  	  document.getElementById("mapMontrealID").style.visibility = "hidden";
+  	  document.getElementById("mapVancouverID").style.visibility = "visible";
+     var x=document.getElementById("ListvID");
+               x.remove(x.selectedIndex);
+  		   }
+ </script>
+    </head>
+    <body>
+     <div id="map"></div>
+        <!-- Home -->
+             <div data-role="page" id="page1">
+  	<div id="headerID" data-theme="b" data-role="header" data-position="fixed"
+  			class="headerClass" onclick="MyHome()">
+  							<h2 class="canadaFont" style="font-size:23px">
+  									Canada's Major Cities
+  							</h2>
+  			</div>
+            <div data-role="content">
+                <div id="navbarID" data-role="navbar" data-iconpos="top" class="navbar" data-position="fixed" style="font-size:27px">
+  			<nav>
+                    <ul>
+                        <li>
+                            <a href="#page1" onclick="MyHome()" data-transition="turn" data-theme="b" data-icon="home" class="ui-btn-active ui-state-persist">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page1" onclick="MyLocation()" data-transition="turn" data-theme="b" data-icon="search">
+                                My Location
+                            </a>
+                        </li>
+                    </ul>
+  				</nav>
+                </div>
+ <div id="list">  			
+            <ul id="ListvID" data-role="listview" data-divider-theme="d" data-inset="true" class="Listv">
+                    <li data-role="list-divider" role="heading">
+                        All Cities
+                    </li>
+                    <li data-theme="b">
+                        <a id="torontoId" href="#page1" data-transition="flip" onclick="toronto()">
+                            Toronto
+                        </a>
+
+                    </li>
+                    <li data-theme="b">
+                        <a id="ottawaId" href="#page1" data-transition="flip" onclick="ottawa()">
+                            Ottawa
+                        </a>
+                    </li>
+                    <li data-theme="b">
+                        <a id="calgaryId" href="#page1" data-transition="flip" onclick="calgary()">
+                            Calgary
+                        </a>
+                    </li>
+                    <li data-theme="b">
+                        <a id="edmontonId" href="#page1" data-transition="flip" onclick="edmonton()">
+                            Edmonton
+                        </a>
+                    </li>
+                    <li data-theme="b">
+                        <a id="montrealId" href="#page1" data-transition="flip" onclick="montreal()">
+                            Montreal
+                        </a>
+                    </li>
+                    <li data-theme="b">
+                        <a id="vancouverId" href="#page1" data-transition="flip" onclick="vancouver()">
+                            Vancouver
+                        </a>
+                    </li>
+                </ul>
+ </div>  			
+<!-- Responsive iFrame -->
+<div class="Flexible-container">
+  			<iframe id="mapTorontoID" width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Toronto,+ON,+Canada&amp;aq=0&amp;oq=toro&amp;sll=37.0625,-95.677068&amp;sspn=37.735377,86.572266&amp;ie=UTF8&amp;hq=&amp;hnear=Toronto,+Toronto+Division,+Ontario,+Canada&amp;t=m&amp;z=10&amp;iwloc=A&amp;ll=43.653226,-79.383184&amp;output=embed"></iframe>
+  			<br />
+  			<iframe id="mapOttawaID" width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Ottawa,+ON,+Canada&amp;aq=0&amp;oq=ottawa+&amp;sll=37.0625,-95.677068&amp;sspn=37.735377,86.572266&amp;ie=UTF8&amp;hq=&amp;hnear=Ottawa,+Ottawa+Division,+Ontario,+Canada&amp;t=m&amp;z=9&amp;ll=45.42153,-75.697193&amp;output=embed"></iframe>
+  			<br />
+  			<iframe id="mapCalgaryID" width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Calgary,+AB,+Canada&amp;aq=0&amp;oq=Calgary&amp;sll=45.42153,-75.697193&amp;sspn=1.046769,2.705383&amp;ie=UTF8&amp;hq=&amp;hnear=Calgary,+Division+No.+6,+Alberta,+Canada&amp;t=m&amp;z=10&amp;ll=51.045325,-114.058101&amp;output=embed"></iframe>
+  			<br />
+  			<iframe id="mapEdmontonID" width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Edmonton,+AB,+Canada&amp;aq=0&amp;oq=edmonton&amp;sll=51.045325,-114.058101&amp;sspn=0.468816,1.352692&amp;ie=UTF8&amp;hq=&amp;hnear=Edmonton,+Division+No.+11,+Alberta,+Canada&amp;t=m&amp;z=10&amp;ll=53.544389,-113.490927&amp;output=embed"></iframe>
+  			<br />
+  			<iframe id="mapMontrealID" width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Montreal,+QC,+Canada&amp;aq=0&amp;oq=Montreal&amp;sll=53.544389,-113.490927&amp;sspn=0.44309,1.352692&amp;ie=UTF8&amp;hq=&amp;hnear=Montreal,+Quebec,+Canada&amp;t=m&amp;z=10&amp;ll=45.50867,-73.553992&amp;output=embed"></iframe>
+  			<br />
+  			<iframe id="mapVancouverID" width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Vancouver,+BC,+Canada&amp;aq=0&amp;oq=vancouver&amp;sll=45.50867,-73.553992&amp;sspn=0.522585,1.352692&amp;ie=UTF8&amp;hq=&amp;hnear=Vancouver,+Greater+Vancouver,+British+Columbia,+Canada&amp;t=m&amp;z=11&amp;ll=49.261226,-123.113927&amp;output=embed"></iframe>
+  			<br />
+</div>
+            </div>
+        </div>
+    </body>
+</html>
